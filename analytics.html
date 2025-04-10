@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance App - Análises</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-wallet text-indigo-600 text-2xl"></i>
+                        <span class="ml-2 text-xl font-semibold">Finance App</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="index.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Dashboard
+                        </a>
+                        <a href="transactions.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Transações
+                        </a>
+                        <a href="cards.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Cartões
+                        </a>
+                        <a href="analytics.html" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Análises
+                        </a>
+                        <a href="settings.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Configurações
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Date Range Selector -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-semibold">Análise Financeira</h2>
+                <div class="flex space-x-4">
+                    <select id="yearSelect" class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <!-- Years will be populated by JavaScript -->
+                    </select>
+                    <select id="monthSelect" class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <option value="">Ano Inteiro</option>
+                        <option value="0">Janeiro</option>
+                        <option value="1">Fevereiro</option>
+                        <option value="2">Março</option>
+                        <option value="3">Abril</option>
+                        <option value="4">Maio</option>
+                        <option value="5">Junho</option>
+                        <option value="6">Julho</option>
+                        <option value="7">Agosto</option>
+                        <option value="8">Setembro</option>
+                        <option value="9">Outubro</option>
+                        <option value="10">Novembro</option>
+                        <option value="11">Dezembro</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <!-- Total Income -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-green-100">
+                        <i class="fas fa-arrow-down text-green-500"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-500 font-medium">Receitas Totais</p>
+                        <h3 class="text-xl font-bold text-gray-900" id="totalIncome">R$ 0,00</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Expenses -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-red-100">
+                        <i class="fas fa-arrow-up text-red-500"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-500 font-medium">Despesas Totais</p>
+                        <h3 class="text-xl font-bold text-gray-900" id="totalExpenses">R$ 0,00</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Net Result -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-blue-100">
+                        <i class="fas fa-calculator text-blue-500"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-500 font-medium">Resultado Líquido</p>
+                        <h3 class="text-xl font-bold text-gray-900" id="netResult">R$ 0,00</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Savings Rate -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-purple-100">
+                        <i class="fas fa-piggy-bank text-purple-500"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-500 font-medium">Taxa de Economia</p>
+                        <h3 class="text-xl font-bold text-gray-900" id="savingsRate">0%</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Income vs Expenses Chart -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-4">Receitas vs Despesas</h3>
+                <canvas id="incomeExpensesChart"></canvas>
+            </div>
+
+            <!-- Expenses by Category Chart -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-4">Despesas por Categoria</h3>
+                <canvas id="expensesByCategoryChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Detailed Analysis -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Top Expenses -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold">Maiores Despesas</h3>
+                </div>
+                <div class="p-6">
+                    <div id="topExpenses" class="space-y-4">
+                        <!-- Top expenses will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monthly Trends -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold">Tendências Mensais</h3>
+                </div>
+                <div class="p-6">
+                    <canvas id="monthlyTrendsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/common.js"></script>
+    <script src="js/analytics.js"></script>
+</body>
+</html>
