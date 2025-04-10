@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance App - Configurações</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-wallet text-indigo-600 text-2xl"></i>
+                        <span class="ml-2 text-xl font-semibold">Finance App</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="index.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Dashboard
+                        </a>
+                        <a href="transactions.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Transações
+                        </a>
+                        <a href="cards.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Cartões
+                        </a>
+                        <a href="analytics.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Análises
+                        </a>
+                        <a href="settings.html" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Configurações
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Income Settings -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <h2 class="text-lg font-semibold mb-6">Configurações de Renda</h2>
+            <form id="incomeSettingsForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Salário Mensal</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="text-gray-500 sm:text-sm">R$</span>
+                            </div>
+                            <input type="number" name="salary" id="salary" step="0.01" min="0"
+                                class="pl-8 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Dia do Recebimento</label>
+                        <input type="number" name="salaryDay" id="salaryDay" min="1" max="31"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Rendas Extras (Descrição e Valor)</label>
+                    <div id="extraIncomeContainer" class="space-y-4 mt-2">
+                        <!-- Extra income fields will be added here -->
+                    </div>
+                    <button type="button" id="addExtraIncome"
+                        class="mt-4 inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <i class="fas fa-plus mr-2"></i>
+                        Adicionar Renda Extra
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Notification Settings -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <h2 class="text-lg font-semibold mb-6">Configurações de Notificações</h2>
+            <form id="notificationSettingsForm" class="space-y-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-900">Ativar Notificações</h3>
+                            <p class="text-sm text-gray-500">Receba alertas sobre vencimentos e limites</p>
+                        </div>
+                        <div class="flex items-center">
+                            <button type="button" id="notificationsToggle" class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <span class="sr-only">Ativar notificações</span>
+                                <span class="translate-x-0 pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200">
+                                    <span class="opacity-0 ease-in duration-200 absolute inset-0 h-full w-full flex items-center justify-center transition-opacity"
+                                        aria-hidden="true">
+                                        <i class="fas fa-times text-gray-400 text-xs"></i>
+                                    </span>
+                                    <span class="opacity-100 ease-in duration-200 absolute inset-0 h-full w-full flex items-center justify-center transition-opacity"
+                                        aria-hidden="true">
+                                        <i class="fas fa-check text-indigo-600 text-xs"></i>
+                                    </span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="notificationOptions" class="pl-4 space-y-4">
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">Dias de Antecedência para Avisos</label>
+                            <div class="mt-2 space-y-2">
+                                <div class="flex items-center">
+                                    <input type="checkbox" name="daysBeforeDue" value="1" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                    <label class="ml-2 text-sm text-gray-700">1 dia antes</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" name="daysBeforeDue" value="2" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                    <label class="ml-2 text-sm text-gray-700">2 dias antes</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" name="daysBeforeDue" value="3" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                    <label class="ml-2 text-sm text-gray-700">3 dias antes</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-sm font-medium text-gray-700">Tipos de Notificação</label>
+                            <div class="mt-2 space-y-2">
+                                <div class="flex items-center">
+                                    <input type="checkbox" name="notifyDueDates" checked class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                    <label class="ml-2 text-sm text-gray-700">Vencimentos de Cartão</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" name="notifyLowBalance" checked class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                    <label class="ml-2 text-sm text-gray-700">Saldo Baixo</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" name="notifyHighExpenses" checked class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                    <label class="ml-2 text-sm text-gray-700">Gastos Elevados</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Backup Section -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <h2 class="text-lg font-semibold mb-6">Backup de Dados</h2>
+            <div class="space-y-4">
+                <div>
+                    <p class="text-sm text-gray-500 mb-4">Exporte seus dados para fazer backup ou transferir para outro dispositivo</p>
+                    <button type="button" id="exportData"
+                        class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        <i class="fas fa-download mr-2"></i>
+                        Exportar Dados
+                    </button>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500 mb-4">Importe dados de um backup anterior</p>
+                    <label class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer">
+                        <i class="fas fa-upload mr-2"></i>
+                        Importar Dados
+                        <input type="file" id="importData" accept=".json" class="hidden">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="flex justify-end">
+            <button type="button" id="saveSettings"
+                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Salvar Configurações
+            </button>
+        </div>
+    </main>
+
+    <script src="js/common.js"></script>
+    <script src="js/backup.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>
