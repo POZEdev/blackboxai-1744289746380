@@ -185,3 +185,22 @@ function showNotification(message, type = 'success') {
 
 // Make functions available globally
 window.removeExtraIncomeField = removeExtraIncomeField;
+
+// Setup backup functionality
+document.getElementById('exportData').addEventListener('click', () => {
+    BackupSystem.exportData();
+});
+
+document.getElementById('importData').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+        const message = await BackupSystem.importData(file);
+        showNotification(message, 'success');
+        // Reload page to show imported data
+        setTimeout(() => window.location.reload(), 1500);
+    } catch (error) {
+        showNotification(error, 'error');
+    }
+});
